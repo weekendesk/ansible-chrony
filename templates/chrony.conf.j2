@@ -1,6 +1,16 @@
 # {{ ansible_managed }}
 # See https://chrony.tuxfamily.org/documentation.html for details on this file
 
+# The *allow* directive is used to designate a particular subnet from which NTP
+# clients are allowed to access the computer as an NTP server.
+#
+# The default is that no clients are allowed access, i.e. *chronyd* operates
+# purely as an NTP client. If the *allow* directive is used, *chronyd* will be
+# both a client of its servers, and a server to other clients.
+{% if chrony_ntp_server_enabled %}
+allow 127.0.0.1
+{% endif %}
+
 {% if chrony_pool %}
 pool {{ chrony_pool }}
 {% endif %}
